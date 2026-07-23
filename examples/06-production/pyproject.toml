@@ -1,0 +1,15 @@
+[project]
+name = "learn-harness-06-production"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=1.0",
+    "langgraph-cli[inmem]",
+    "langchain>=1.0",
+    "langchain-openai",
+    "langsmith",
+    "python-dotenv",
+]
+
+[tool.uv]
+package = false

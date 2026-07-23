@@ -1,0 +1,14 @@
+[project]
+name = "learn-harness-02-langgraph"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=1.0",
+    "langchain>=1.0",
+    "langchain-openai",
+    "langgraph-supervisor",
+    "python-dotenv",
+]
+
+[tool.uv]
+package = false

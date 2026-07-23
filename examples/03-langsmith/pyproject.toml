@@ -1,0 +1,17 @@
+[project]
+name = "learn-harness-03-langsmith"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "langsmith",
+    "langsmith[pytest]",
+    "pytest",
+    "openevals",
+    "langchain-openai",
+    "langchain>=1.0",
+    "openai",
+    "python-dotenv",
+]
+
+[tool.uv]
+package = false

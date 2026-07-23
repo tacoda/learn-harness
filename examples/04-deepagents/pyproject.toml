@@ -1,0 +1,14 @@
+[project]
+name = "learn-harness-04-deepagents"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "deepagents",
+    "langchain>=1.0",
+    "langchain-openai",
+    "langgraph>=1.0",
+    "python-dotenv",
+]
+
+[tool.uv]
+package = false
