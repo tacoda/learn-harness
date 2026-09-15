@@ -4,7 +4,7 @@ Tracks my walk through `learn-harness`. Read docs in order; run each example alo
 
 **Legend:** `[ ]` todo · `[~]` in progress · `[x]` done
 
-**Current position:** _Tracks 01–04 complete — all docs read, all examples run green. Next: Track 05 · Expert._
+**Current position:** _All tracks complete (00–06). Every doc read; every example run green. `examples/06-production` verified end to end: graph imports as a CompiledStateGraph, `langgraph dev` serves it, the Runs API answers, and `eval_gate.py` scores 1.00 and exits 0._
 
 **Env status:** uv ✅ · Python 3.14 ✅ · `OPENAI_API_KEY` ✅ · `LANGSMITH_API_KEY` ✅ · `LANGSMITH_TRACING` ✅ · `LANGSMITH_PROJECT=learn-harness` ✅ · `ANTHROPIC_API_KEY` ❌ · root `.env` present
 
@@ -91,28 +91,28 @@ _Apply design patterns, loop/graph engineering, internals, and eval-driven devel
 
 | # | Doc | Example |
 |---|-----|---------|
-| 01 | [ ] The agent loop and loop engineering | [ ] `01_bounded_loop.py` |
-| 02 | [ ] Graph engineering | [ ] `02_router_pattern.py` |
-| 03 | [ ] Context engineering | [ ] `03_reflection.py` |
-| 04 | [ ] Agent design patterns | [ ] `04_retry_fallback.py` |
-| 05 | [ ] Multi-agent system design | [ ] `05_cost_latency.py` |
-| 06 | [ ] Production reliability | — |
-| 07 | [ ] Cost and latency optimization | — |
-| 08 | [ ] Evaluation-driven development | — |
-| 09 | [ ] Library internals | — |
-| 10 | [ ] Idioms and the LangChain way | — |
-| 11 | [ ] Security and guardrails | — |
+| 01 | [x] The agent loop and loop engineering | [x] `01_bounded_loop.py` |
+| 02 | [x] Graph engineering | — |
+| 03 | [x] Context engineering | — |
+| 04 | [x] Agent design patterns | [x] `02_router_pattern.py` · [x] `03_reflection.py` |
+| 05 | [x] Multi-agent system design | — |
+| 06 | [x] Production reliability | [x] `04_retry_fallback.py` |
+| 07 | [x] Cost and latency optimization | [x] `05_cost_latency.py` |
+| 08 | [x] Evaluation-driven development | — |
+| 09 | [x] Library internals | — |
+| 10 | [x] Idioms and the LangChain way | — |
+| 11 | [x] Security and guardrails | — |
 
 ## 06 · Production — `docs/06-production`
 _Deploy, monitor, and maintain an agentic app as a repeatable pattern._
 
 | # | Doc |
 |---|-----|
-| 01 | [ ] The path to production |
-| 02 | [ ] Packaging and assistants |
-| 03 | [ ] Deploying |
-| 04 | [ ] Monitoring |
-| 05 | [ ] Maintenance and iteration |
-| 06 | [ ] The production pattern checklist |
+| 01 | [x] The path to production |
+| 02 | [x] Packaging and assistants |
+| 03 | [x] Deploying |
+| 04 | [x] Monitoring |
+| 05 | [x] Maintenance and iteration |
+| 06 | [x] The production pattern checklist |
 
 _Example project: `examples/06-production/` (`app/agent.py`, `eval_gate.py`, `langgraph.json`)._
