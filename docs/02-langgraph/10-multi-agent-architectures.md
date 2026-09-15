@@ -71,6 +71,8 @@ workflow = create_supervisor(agents=[research_agent, math_agent], model=model, t
 
 The supervisor is the default choice: the routing logic lives in one place (the coordinator), workers stay simple and independent, and you can add or remove a specialist without touching the others.
 
+One wrinkle worth knowing: `langgraph-supervisor` (0.0.31) still builds its *own* coordinator with the deprecated `langgraph.prebuilt.create_react_agent` internally. Your workers should use `create_agent`, but the package's internal call will trip `LangGraphDeprecatedSinceV10` if you run with `-W error::DeprecationWarning`. Python's default warning filter only surfaces `DeprecationWarning` raised from `__main__`, so you won't see it in a normal run — it's the library's migration to make, not yours.
+
 ### Swarm (`langgraph-swarm`)
 
 In a swarm there is no central coordinator. Agents hand off directly to each other, and the graph tracks an `active_agent` in state so the *next* user turn resumes with whoever was last in control — not always the same entry agent. `langgraph-swarm` provides `create_swarm` and its own `create_handoff_tool`:
@@ -134,7 +136,8 @@ Multi-agent design is mostly a **context-engineering** strategy. A single agent 
 - **Duplicate or missing agent `name`s.** Handoff tools route by name; supervisor and swarm both require each agent to have a unique `name`, or routing breaks.
 - **Uncontrolled networks.** Any-to-any handoffs are hard to reason about and easy to loop forever. Add structure (a supervisor) unless you truly need the freedom, and mind the recursion limit.
 - **Losing or duplicating message history across handoffs.** Handoff tools decide whether to add handoff messages to history; misconfigure it and the receiving agent sees a garbled conversation. Understand what your handoff tool passes along.
-- **Stale-tutorial trap.** Older multi-agent tutorials predate `langgraph-supervisor` and `langgraph-swarm` and hand-wire everything, or build workers with the old `create_react_agent` exclusively. In v1, workers are typically `create_agent`, and the supervisor/swarm packages provide `create_supervisor` / `create_swarm` and their handoff-tool factories.
+- **Building workers with `create_react_agent`.** Deprecated since LangGraph v1.0 (removal targeted for v2.0). Build workers with `langchain.agents.create_agent`; it takes the same `model` / `tools` / `name` arguments the supervisor and swarm factories need.
+- **Stale-tutorial trap.** Older multi-agent tutorials predate `langgraph-supervisor` and `langgraph-swarm` and hand-wire everything, or build workers with the old `create_react_agent` exclusively. In v1, workers are `create_agent`, and the supervisor/swarm packages provide `create_supervisor` / `create_swarm` and their handoff-tool factories.
 
 ## Exercises
 

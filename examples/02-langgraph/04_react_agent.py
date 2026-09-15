@@ -2,10 +2,16 @@
 
 Mirrors docs/02-langgraph/04-prebuilt-react-agent.md.
 
-`create_react_agent` (from langgraph.prebuilt) wires the whole ReAct loop
-for you: a model node, a ToolNode that runs tool calls, and a conditional
-edge that loops back while there are tool calls and routes to END when
-there aren't. This is v1 -- no AgentExecutor. Requires OPENAI_API_KEY.
+`create_agent` (from langchain.agents) wires the whole ReAct loop for you:
+a model node, a ToolNode that runs tool calls, and a conditional edge that
+loops back while there are tool calls and routes to END when there aren't.
+
+It replaces `langgraph.prebuilt.create_react_agent`, which is deprecated
+since LangGraph v1.0 (`LangGraphDeprecatedSinceV10`) and slated for removal
+in v2.0. Migration guide:
+https://docs.langchain.com/oss/python/migrate/langgraph-v1
+
+Requires OPENAI_API_KEY.
 """
 
 import os
@@ -17,7 +23,7 @@ MODEL = os.environ.get("MODEL", "gpt-4o-mini")
 
 from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 
 model = init_chat_model(MODEL, model_provider="openai")
 
@@ -29,7 +35,7 @@ def get_weather(city: str) -> str:
 
 
 if __name__ == "__main__":
-    agent = create_react_agent(model=model, tools=[get_weather])
+    agent = create_agent(model=model, tools=[get_weather])
 
     result = agent.invoke(
         {"messages": [{"role": "user", "content": "What's the weather in Austin?"}]}

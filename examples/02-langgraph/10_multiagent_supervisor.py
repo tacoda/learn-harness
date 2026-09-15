@@ -7,7 +7,14 @@ define specialist workers and it generates the coordinator plus the handoff
 tools. The supervisor reads the conversation, calls an auto-generated
 handoff tool (e.g. transfer_to_math_expert), the worker runs, and control
 returns to the supervisor. Each worker needs a unique name. It returns a
-StateGraph you .compile(). Requires OPENAI_API_KEY.
+StateGraph you .compile().
+
+Workers are built with `create_agent` (langchain.agents), the v1 standard.
+`langgraph.prebuilt.create_react_agent` is deprecated since LangGraph v1.0
+and slated for removal in v2.0:
+https://docs.langchain.com/oss/python/migrate/langgraph-v1
+
+Requires OPENAI_API_KEY.
 """
 
 import os
@@ -19,7 +26,7 @@ MODEL = os.environ.get("MODEL", "gpt-4o-mini")
 
 from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from langgraph_supervisor import create_supervisor
 
 model = init_chat_model(MODEL, model_provider="openai")
@@ -38,8 +45,8 @@ def web_search(query: str) -> str:
 
 
 if __name__ == "__main__":
-    math_agent = create_react_agent(model=model, tools=[add], name="math_expert")
-    research_agent = create_react_agent(
+    math_agent = create_agent(model=model, tools=[add], name="math_expert")
+    research_agent = create_agent(
         model=model, tools=[web_search], name="research_expert"
     )
 

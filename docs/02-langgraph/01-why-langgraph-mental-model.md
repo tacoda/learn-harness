@@ -93,7 +93,7 @@ Every reliable agent eventually needs the same four things: to branch, to loop, 
 - **Reaching for `StateGraph` too early.** Most single-agent apps fit `create_agent`. Writing a hand-rolled graph for them is more code to maintain for no capability gain.
 - **Thinking of nodes as function calls.** They are actors that communicate through state channels, not subroutines you pass arguments to. "How do I pass X to the next node?" is answered by "put X in state," never by a return-then-argument handoff.
 - **Assuming within-step ordering.** In a parallel super-step there is no "this node runs before that one." If two nodes write the same key, define a reducer that combines them or you'll lose a write.
-- **Stale-tutorial trap.** Pre-1.0 material leans on `AgentExecutor` and treats LangGraph as exotic. In v1, LangGraph is the runtime under everything, and `create_agent` (LangChain) is the standard high-level entry — older `create_react_agent`-first tutorials still work but aren't the current default. Check imports before trusting code.
+- **Stale-tutorial trap.** Pre-1.0 material leans on `AgentExecutor` and treats LangGraph as exotic. In v1, LangGraph is the runtime under everything, and `create_agent` (LangChain) is the standard high-level entry. Tutorials built on `langgraph.prebuilt.create_react_agent` still run, but that function is deprecated as of LangGraph v1.0 (chapter 4). Check imports before trusting code.
 
 ## Exercises
 
