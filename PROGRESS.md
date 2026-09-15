@@ -1,0 +1,118 @@
+# Learning Progress
+
+Tracks my walk through `learn-harness`. Read docs in order; run each example alongside its module.
+
+**Legend:** `[ ]` todo · `[~]` in progress · `[x]` done
+
+**Current position:** _Tracks 01–02 complete — all docs read, all examples run green. Next: Track 03 · LangSmith — needs `LANGSMITH_API_KEY` before its examples will run._
+
+**Env status:** uv ✅ · Python 3.14 ✅ · `OPENAI_API_KEY` ✅ · `ANTHROPIC_API_KEY` ❌ · `LANGSMITH_API_KEY` ❌ · no `.env`
+
+Last updated: 2026-09-15
+
+---
+
+## 00 · Foundations — `docs/00-foundations`
+_Explain the ecosystem and set up a clean `uv` workspace._
+
+- [x] 01 Overview and mental model
+- [x] 02 Environment setup (uv)
+- [x] 03 The LangChain ecosystem
+- [x] 04 The LangChain way (philosophy)
+
+## 01 · LangChain — `docs/01-langchain`
+_Compose models, tools, retrieval, and agents with `create_agent` + middleware._
+
+| # | Doc | Example |
+|---|-----|---------|
+| 01 | [x] Chat models and messages | [x] `01_chat_models.py` |
+| 02 | [x] Prompt templates | [x] `02_prompt_templates.py` |
+| 03 | [x] Structured output | [x] `03_structured_output.py` |
+| 04 | [x] Runnables and LCEL | [x] `04_runnables_lcel.py` |
+| 05 | [x] Tools and tool calling | [x] `05_tools_and_calling.py` |
+| 06 | [x] Retrieval, embeddings, vectorstores | [x] `06_retrieval.py` |
+| 07 | [x] RAG patterns | [x] `07_rag.py` |
+| 08 | [x] Memory and chat history | — |
+| 09 | [x] Agents (`create_agent`) | [x] `09_agent.py` |
+| 10 | [x] Middleware | [x] `10_middleware.py` |
+| 11 | [x] Streaming | [x] `11_streaming.py` |
+| 12 | [x] Callbacks and runtime | — |
+| 13 | [x] Implementing custom components | — |
+
+## 02 · LangGraph — `docs/02-langgraph`
+_Design stateful graphs, persistence, HITL, and multi-agent systems._
+
+| # | Doc | Example |
+|---|-----|---------|
+| 01 | [x] Why LangGraph (mental model) | [x] `01_hello_stategraph.py` |
+| 02 | [x] StateGraph: state and reducers | [x] `02_state_reducers.py` |
+| 03 | [x] Nodes, edges, control flow | [x] `03_conditional_edges.py` |
+| 04 | [x] Prebuilt ReAct agent | [x] `04_react_agent.py` |
+| 05 | [x] Persistence (checkpointers) | [x] `05_persistence.py` |
+| 06 | [x] Memory: short- and long-term | [x] `06_long_term_memory.py` |
+| 07 | [x] Human-in-the-loop interrupts | [x] `07_hitl_interrupt.py` |
+| 08 | [x] Streaming | [x] `08_streaming.py` |
+| 09 | [x] Subgraphs | [x] `09_subgraph.py` |
+| 10 | [x] Multi-agent architectures | [x] `10_multiagent_supervisor.py` |
+| 11 | [x] Durable execution and time travel | — |
+| 12 | [x] Functional API | — |
+| 13 | [x] Deployment (LangGraph Platform) | — |
+| 14 | [x] Internals: Pregel, channels | — |
+
+## 03 · LangSmith — `docs/03-langsmith`
+_Trace, evaluate, and manage prompts for production reliability._
+
+| # | Doc | Example |
+|---|-----|---------|
+| 01 | [ ] Tracing and observability | [ ] `01_tracing.py` |
+| 02 | [ ] Datasets | [ ] `02_dataset.py` |
+| 03 | [ ] Evaluation and experiments | [ ] `03_evaluate.py` |
+| 04 | [ ] Evaluators (LLM-as-judge) | [ ] `04_llm_judge.py` |
+| 05 | [ ] Prompt management and hub | — |
+| 06 | [ ] Monitoring dashboards and alerts | — |
+| 07 | [ ] Annotation queues and feedback | — |
+| 08 | [ ] Testing in CI/CD | [ ] `test_regression.py` |
+| 09 | [ ] Instrumenting your code (`@traceable`) | — |
+
+## 04 · deepagents — `docs/04-deepagents`
+_Build long-horizon agents with planning, sub-agents, and a virtual filesystem._
+
+| # | Doc | Example |
+|---|-----|---------|
+| 01 | [ ] What are deep agents | [ ] `01_basic_deep_agent.py` |
+| 02 | [ ] Planning and todos | [ ] `02_subagents.py` |
+| 03 | [ ] Subagents and context isolation | [ ] `03_filesystem.py` |
+| 04 | [ ] Virtual filesystem | [ ] `04_checkpointed.py` |
+| 05 | [ ] Customizing and middleware | — |
+| 06 | [ ] Implementing a deep agent | — |
+
+## 05 · Expert — `docs/05-expert`
+_Apply design patterns, loop/graph engineering, internals, and eval-driven development._
+
+| # | Doc | Example |
+|---|-----|---------|
+| 01 | [ ] The agent loop and loop engineering | [ ] `01_bounded_loop.py` |
+| 02 | [ ] Graph engineering | [ ] `02_router_pattern.py` |
+| 03 | [ ] Context engineering | [ ] `03_reflection.py` |
+| 04 | [ ] Agent design patterns | [ ] `04_retry_fallback.py` |
+| 05 | [ ] Multi-agent system design | [ ] `05_cost_latency.py` |
+| 06 | [ ] Production reliability | — |
+| 07 | [ ] Cost and latency optimization | — |
+| 08 | [ ] Evaluation-driven development | — |
+| 09 | [ ] Library internals | — |
+| 10 | [ ] Idioms and the LangChain way | — |
+| 11 | [ ] Security and guardrails | — |
+
+## 06 · Production — `docs/06-production`
+_Deploy, monitor, and maintain an agentic app as a repeatable pattern._
+
+| # | Doc |
+|---|-----|
+| 01 | [ ] The path to production |
+| 02 | [ ] Packaging and assistants |
+| 03 | [ ] Deploying |
+| 04 | [ ] Monitoring |
+| 05 | [ ] Maintenance and iteration |
+| 06 | [ ] The production pattern checklist |
+
+_Example project: `examples/06-production/` (`app/agent.py`, `eval_gate.py`, `langgraph.json`)._
