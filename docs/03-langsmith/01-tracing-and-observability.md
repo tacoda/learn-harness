@@ -71,25 +71,42 @@ Attach the things you will want to slice by later: user or tenant id, app versio
 
 ### Filtering runs
 
-In the UI, projects have a filter bar; programmatically you use `client.list_runs` with a filter string:
+In the UI, projects have a filter bar. Programmatically there are two APIs, and you are reading this during the changeover between them.
+
+**`client.runs.query()` — the current API.** Note the shape: it is `async`, it takes `project_ids` (UUIDs, not a name), it returns a paginated object you read `.items` off, and it only populates the fields you name in `selects`.
 
 ```python
+import asyncio
 from langsmith import Client
-client = Client()
 
+client = Client()
+project = client.read_project(project_name="my-app")   # name -> id
+
+async def recent_roots():
+    page = await client.runs.query(
+        project_ids=[str(project.id)],
+        is_root=True,                                   # top-level traces only
+        selects=["name", "run_type", "total_tokens"],   # omit and fields come back None
+        page_size=5,
+    )
+    return page.items
+
+for run in asyncio.run(recent_roots()):
+    print(run.run_type, run.name, run.total_tokens)
+```
+
+`is_root=True` is the important ergonomic win — it replaces the older idiom of filtering on `ls_run_depth = 0` to separate actual top-level requests from the soup of nested child runs.
+
+**`client.list_runs()` — deprecated.** Synchronous, takes `project_name` directly, and accepts a filter string:
+
+```python
 runs = client.list_runs(
     project_name="my-app",
     filter='and(eq(metadata_key, "user_id"), eq(metadata_value, "u_123"))',
 )
-
-# Root runs only (top-level traces, not children):
-runs = client.list_runs(
-    project_name="my-app",
-    filter='eq(metadata_key, "ls_run_depth") and eq(metadata_value, 0)',
-)
 ```
 
-Filtering on `ls_run_depth = 0` to get just root runs is a common idiom — it turns a soup of every nested run into the list of actual top-level requests.
+It still works and is what most tutorials and older code show, but calling it emits a `DeprecationWarning`: removal is scheduled **after Jan 31, 2027**. Write new code against `runs.query`; treat `list_runs` as something you will encounter and migrate, not something to reach for. The migration is not a rename — the sync/async, name/id, and `selects` differences above all bite. See the [SmithDB SDK migration guide](https://docs.langchain.com/langsmith/smithdb-sdk-migration#runs-query).
 
 ## Why it matters
 
@@ -104,13 +121,14 @@ Tracing is also the substrate for everything else in this track: datasets are bu
 - **Not attaching identifiers.** Traces without a user id, tenant, or version are hard to filter when you have thousands. Attach metadata proactively — you cannot backfill it.
 - **Treating tags as metadata.** Tags are for coarse categorical filtering; high-cardinality values (like user ids) belong in metadata, not tags.
 - **Leaking secrets into traces.** Inputs and outputs are captured verbatim. If your payloads contain PII or credentials, you need redaction (file 09) — the trace store is not a safe place for raw secrets by default.
+- **Writing new code against `client.list_runs`.** It is deprecated with a removal date (after Jan 31, 2027). `client.runs.query` is the replacement, and porting is more than a rename — it is async, keyed by project id, and returns only the fields you `select`.
 
 ## Exercises
 
 1. Set the four tracing environment variables and run any LangChain or `create_agent` example from the earlier tracks. Open the resulting trace in the UI and identify the root run, an LLM child run, and its token counts.
-2. Add `metadata={"env": "dev"}` to a traceable function, run it a few times, then use `client.list_runs` with a filter that returns only those runs.
+2. Add `metadata={"env": "dev"}` to a traceable function, run it a few times, then query those runs back — once with `client.list_runs` and a filter string, once with `client.runs.query`. Note what the migration actually costs you.
 3. Deliberately raise an exception inside a traced tool function. Find the failed run in the UI and confirm the error and the inputs that triggered it are both visible.
-4. Explain to a colleague why filtering on `ls_run_depth = 0` gives you "one row per request" and when you would *not* want that filter.
+4. Explain to a colleague why filtering on `ls_run_depth = 0` (or passing `is_root=True`) gives you "one row per request", and when you would *not* want that filter.
 
 ## Further reading
 
@@ -118,4 +136,5 @@ Tracing is also the substrate for everything else in this track: datasets are bu
 - Tracing concepts: https://docs.langchain.com/langsmith/observability-concepts
 - Add metadata and tags: https://docs.langchain.com/langsmith/add-metadata-tags
 - Filter traces in the application: https://docs.langchain.com/langsmith/filter-traces-in-application
+- SmithDB SDK migration (`list_runs` → `runs.query`): https://docs.langchain.com/langsmith/smithdb-sdk-migration#runs-query
 - Log traces to a project: https://docs.langchain.com/langsmith/log-traces-to-project

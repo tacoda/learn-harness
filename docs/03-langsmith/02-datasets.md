@@ -62,7 +62,7 @@ This is the highest-leverage path. Once you are tracing production (file 01), ev
 
 - **From the UI:** open a trace, click "Add to dataset," and adjust the inputs/reference outputs before saving. You can correct the output to what it *should* have been — that edited value becomes the reference.
 - **Via annotation queues** (file 07): route runs to human reviewers who fix inputs/outputs, then push the corrected examples into a dataset. Modifications made in the queue carry over.
-- **Programmatically:** pull runs with `client.list_runs`, map each run's `inputs`/`outputs` into example dicts, and `create_examples`.
+- **Programmatically:** pull runs with `client.runs.query` (or the deprecated `client.list_runs`; see file 01), map each run's `inputs`/`outputs` into example dicts, and `create_examples`. Filter to root runs — `is_root=True` — so you import whole requests rather than every nested child span.
 
 The workflow that matters: a user reports a bad answer → you find the trace → you add it to the dataset with the *correct* reference output → your next experiment now includes that case → you never regress on it again. That loop is how an eval suite grows to reflect reality instead of your imagination.
 

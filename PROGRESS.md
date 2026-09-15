@@ -4,9 +4,9 @@ Tracks my walk through `learn-harness`. Read docs in order; run each example alo
 
 **Legend:** `[ ]` todo · `[~]` in progress · `[x]` done
 
-**Current position:** _Tracks 01–02 complete — all docs read, all examples run green. Next: Track 03 · LangSmith — needs `LANGSMITH_API_KEY` before its examples will run._
+**Current position:** _Tracks 01–04 complete — all docs read, all examples run green. Next: Track 05 · Expert._
 
-**Env status:** uv ✅ · Python 3.14 ✅ · `OPENAI_API_KEY` ✅ · `ANTHROPIC_API_KEY` ❌ · `LANGSMITH_API_KEY` ❌ · no `.env`
+**Env status:** uv ✅ · Python 3.14 ✅ · `OPENAI_API_KEY` ✅ · `LANGSMITH_API_KEY` ✅ · `LANGSMITH_TRACING` ✅ · `LANGSMITH_PROJECT=learn-harness` ✅ · `ANTHROPIC_API_KEY` ❌ · root `.env` present
 
 Last updated: 2026-09-15
 
@@ -64,27 +64,27 @@ _Trace, evaluate, and manage prompts for production reliability._
 
 | # | Doc | Example |
 |---|-----|---------|
-| 01 | [ ] Tracing and observability | [ ] `01_tracing.py` |
-| 02 | [ ] Datasets | [ ] `02_dataset.py` |
-| 03 | [ ] Evaluation and experiments | [ ] `03_evaluate.py` |
-| 04 | [ ] Evaluators (LLM-as-judge) | [ ] `04_llm_judge.py` |
-| 05 | [ ] Prompt management and hub | — |
-| 06 | [ ] Monitoring dashboards and alerts | — |
-| 07 | [ ] Annotation queues and feedback | — |
-| 08 | [ ] Testing in CI/CD | [ ] `test_regression.py` |
-| 09 | [ ] Instrumenting your code (`@traceable`) | — |
+| 01 | [x] Tracing and observability | [x] `01_tracing.py` |
+| 02 | [x] Datasets | [x] `02_dataset.py` |
+| 03 | [x] Evaluation and experiments | [x] `03_evaluate.py` |
+| 04 | [x] Evaluators (LLM-as-judge) | [x] `04_llm_judge.py` |
+| 05 | [x] Prompt management and hub | — |
+| 06 | [x] Monitoring dashboards and alerts | — |
+| 07 | [x] Annotation queues and feedback | — |
+| 08 | [x] Testing in CI/CD | [x] `test_regression.py` |
+| 09 | [x] Instrumenting your code (`@traceable`) | — |
 
 ## 04 · deepagents — `docs/04-deepagents`
 _Build long-horizon agents with planning, sub-agents, and a virtual filesystem._
 
 | # | Doc | Example |
 |---|-----|---------|
-| 01 | [ ] What are deep agents | [ ] `01_basic_deep_agent.py` |
-| 02 | [ ] Planning and todos | [ ] `02_subagents.py` |
-| 03 | [ ] Subagents and context isolation | [ ] `03_filesystem.py` |
-| 04 | [ ] Virtual filesystem | [ ] `04_checkpointed.py` |
-| 05 | [ ] Customizing and middleware | — |
-| 06 | [ ] Implementing a deep agent | — |
+| 01 | [x] What are deep agents | [x] `01_basic_deep_agent.py` |
+| 02 | [x] Planning and todos | — |
+| 03 | [x] Subagents and context isolation | [x] `02_subagents.py` |
+| 04 | [x] Virtual filesystem | [x] `03_filesystem.py` · [x] `04_checkpointed.py` |
+| 05 | [x] Customizing and middleware | — |
+| 06 | [x] Implementing a deep agent | — |
 
 ## 05 · Expert — `docs/05-expert`
 _Apply design patterns, loop/graph engineering, internals, and eval-driven development._
